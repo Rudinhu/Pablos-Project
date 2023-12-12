@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+ 
+    {% block title %}
+    Organizer - Lista de Tarefas
+    {% endblock title %}
+
+
+  {% block content %}
+    <h1>Lista de Tarefas</h1>
+    
+    {% if todo_list %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Nº</th>
+                <th scope="col">Tarefas</th>
+                <th scope="col">Data Inicial</th>
+                <th scope="col">Data de Término</th>
+                <th scope="col">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for todo in todo_list %}
+                    <tr>
+                        <th scope="row">{{ todo.pk }}</th>
+                        <td>{{ todo.title }}</td>
+                        <td>{{ todo.created_date }}</td>
+                        <td>{{ todo.final_date | default:"-" }}</td>
+                        <td>
+                            <a href="{% url 'todo_complete' pk=todo.pk %}" class="btn btn-primary btn-sm">Concluir</a>
+                            <a href="{% url 'todo_update' pk=todo.pk %}" class="btn btn-secondary btn-sm">Editar</a>
+                            <a href="{% url 'todo_delete' pk=todo.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Não existe nenhuma tarefa cadastrada! Crie uma nova tarefa.</p>
+    {% endif %}
+    
+    <a href="{% url 'todo_create' %}" class="btn btn-primary">Criar Tarefa</a>
+  {% endblock content %}    

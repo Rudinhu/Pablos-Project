@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Organizer - Confirmar Exclusão
+{% endblock title %}
+
+
+
+{% block content %}
+    <h1>Excluir Tarefa</h1>
+
+    <p>Deseja mesmo Excluir a tarefa <Strong>"{{ todo.title }}"</Strong> ?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+            <button type="submit" class="btn btn-danger">Excluir</button>
+
+        <a href="{% url "todo_list" %}" class="btn btn-primary">Cancelar</a>
+    </form>
+{% endblock content %}
